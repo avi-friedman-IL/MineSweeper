@@ -1,0 +1,28 @@
+body {
+    text-align: center;
+}
+
+.levels {
+    display: inline-block;
+    background-color: aqua;
+}
+
+.level:hover {
+    cursor: pointer;
+    background-color: #f48585;
+}
+
+img {
+    height: 25px;
+}
+
+table {
+    margin: auto;
+    margin-top: 200px;
+}
+
+.cell {
+    background-color: rgb(155, 205, 249);
+    width: 50px;
+    height: 50px;
+}
