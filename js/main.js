@@ -1,6 +1,6 @@
 'use strict'
 
-const MINE_IMG = '☼'
+const MINE_IMG  = '💣'
 
 const gLevel = {
     SIZE: 4,
