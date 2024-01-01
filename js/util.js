@@ -4,6 +4,7 @@ function renderCell(location, value) {
     const cellSelector = '.' + getClassName(location)
     const elCell = document.querySelector(cellSelector)
     elCell.innerHTML = value
+    elCell.style.backgroundColor = 'azure'
 }
 
 function getClassName(position) {
@@ -29,18 +30,20 @@ function getRandomColor() {
     }
     return color
 }
+const elTimer = document.querySelector('.timer span')
+function getTimer() {
+    if(!gGame.isOn) return
 
 
-
-
-
-
-
-
-
-function onCellMarked(elCell) {
-
+    gGame.secsPassed++;
+    elTimer.innerText = gGame.secsPassed
 }
+
+
+
+
+
+
 
 function checkGameOver() {
 
