@@ -1,15 +1,27 @@
 body {
     text-align: center;
+    background-color: rgb(237, 217, 217);
 }
 
 .levels {
     display: inline-block;
-    background-color: aqua;
+    color: rgb(0, 0, 0);
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 50px;
+}
+
+.level {
+    display: inline-block;
+    text-align: center;
+    margin: auto;
+    background-color: rgb(155, 205, 249);
+    width: 100px;
+    height: 100px;
 }
 
 .level:hover {
     cursor: pointer;
-    background-color: #f48585;
+    background-color: #3fc4f8;
 }
 
 img {
