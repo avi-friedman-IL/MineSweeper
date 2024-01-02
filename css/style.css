@@ -16,7 +16,6 @@ h2 span{
     color: rgb(0, 0, 0);
     padding: 50px;
 }
-
 .level {
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
    
@@ -26,29 +25,47 @@ h2 span{
     height: 50px;
     border-radius: 20px;
 }
-
 .level:hover {
     cursor: pointer;
     background-color: #3fc4f8;
 }
-
 img {
     height: 25px;
 }
-
 table {
     margin: auto;
-    margin-top: 70px;
+    margin-top: 20px;
 }
-
 .cell {
     background-color: rgb(155, 205, 249);
     width: 40px;
     height: 40px;
 }
-
-
+.cell:hover {
+    cursor: pointer;
+}
 h3 {
+    margin-top: 10px;
+}
+.game-over {
     display: inline-block;
-    margin-top: 65px;
+    margin-top: 5px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 25px;
+}
+.win {
+    border-radius: 25px;
+    margin: auto;
+    display: none;
+    width: 200px;
+    height: 100px;
+    background-color: rgb(248, 207, 112);
+}
+.smiley-button {
+    display: inline-block;
+    font-size: 35px;
+}
+.smiley-button:hover {
+    cursor: pointer;
 }
