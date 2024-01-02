@@ -131,6 +131,8 @@ function renderSubtitle() {
 
 function smileyButton() {
     // const SMILEYS = ['😂', '🙁', '😒']
+    gGame.lives = 3
+    renderSubtitle()
     onInit()
 }
 
