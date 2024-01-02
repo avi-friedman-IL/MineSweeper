@@ -30,22 +30,4 @@ function getRandomColor() {
     }
     return color
 }
-const elTimer = document.querySelector('.timer span')
-function getTimer() {
-    if(!gGame.isOn) return
-
-
-    gGame.secsPassed++;
-    elTimer.innerText = gGame.secsPassed
-}
-
-
-
-
-
-
-
-function checkGameOver() {
-
-}
 

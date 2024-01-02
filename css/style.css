@@ -3,20 +3,28 @@ body {
     background-color: rgb(237, 217, 217);
 }
 
+h2 {
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+h2 span{
+    color: red;
+}
+
 .levels {
-    display: inline-block;
+    display: block;
+    text-align: center;
     color: rgb(0, 0, 0);
-    font-family: Arial, Helvetica, sans-serif;
     padding: 50px;
 }
 
 .level {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+   
     display: inline-block;
-    text-align: center;
-    margin: auto;
-    background-color: rgb(155, 205, 249);
-    width: 100px;
-    height: 100px;
+    background-color: rgb(182, 220, 145);
+    width: 150px;
+    height: 50px;
+    border-radius: 20px;
 }
 
 .level:hover {
@@ -30,11 +38,17 @@ img {
 
 table {
     margin: auto;
-    margin-top: 200px;
+    margin-top: 70px;
 }
 
 .cell {
     background-color: rgb(155, 205, 249);
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
+}
+
+
+h3 {
+    display: inline-block;
+    margin-top: 65px;
 }

@@ -1,5 +1,6 @@
 'use strict'
 var gBoard
+var gIntervalSecs
 
 const MINE_IMG = '💣'
 
@@ -12,17 +13,20 @@ const gGame = {
     isOn: false,
     shownCount: 0,
     markedCount: 0,
-    secsPassed: null
+    secsPassed: 0,
+    lives: 2,
 }
 
 
 function onInit() {
+    gGame.secsPassed = 0
     gGame.isOn = true
     gGame.shownCount = 0
-    renderLevels()
+    clearInterval(gIntervalSecs)
+
     gBoard = buildBoard()
     renderBoard(gBoard, '.board-container')
-    gGame.secsPassed = setInterval(getTimer, 1000)
+    gIntervalSecs = setInterval(getTimer, 1000)
 }
 
 function buildBoard() {
@@ -43,11 +47,16 @@ function buildBoard() {
     return board
 }
 
+function firstClick() {
+    if (gGame.shownCount === 0) return
+    // createsMines(gBoard)
+}
+
 function createsMines(board) {
     for (var i = 0; i < gLevel.MINES; i++) {
         var boardI = getRandomInt(0, gLevel.SIZE)
         var boardJ = getRandomInt(0, gLevel.SIZE)
-        
+
         if (!board[boardI][boardJ].isMine) board[boardI][boardJ].isMine = true
         else i -= 1
     }
@@ -56,7 +65,7 @@ function createsMines(board) {
 
 
 function onCellClicked(elCell, row, col) {
-    
+    firstClick()
     const currCell = gBoard[row][col]
 
 
@@ -68,9 +77,9 @@ function onCellClicked(elCell, row, col) {
     if (currCell.isMarked) return
 
     elCell.style.backgroundColor = 'azure'
-    
+
     setMinesNegsCount(row, col)
-    
+
     gGame.shownCount++
 
     if (currCell.minesAroundCount) elCell.innerText = currCell.minesAroundCount
@@ -78,9 +87,10 @@ function onCellClicked(elCell, row, col) {
     if (!currCell.minesAroundCount) expandShown(row, col)
 
     if (currCell.isMine) {
-        elCell.innerHTML = MINE_IMG
-        gameOver()
+        elCell.innerText = MINE_IMG
+        checkGameOver()
     }
+
 }
 
 function expandShown(row, col) {
@@ -98,17 +108,18 @@ function expandShown(row, col) {
 }
 
 function setMinesNegsCount(row, col) {
+    const negs = []
     for (var i = row - 1; i <= row + 1; i++) {
         if (i < 0 || i >= gBoard.length) continue
         for (var j = col - 1; j <= col + 1; j++) {
             if (j < 0 || j >= gBoard[0].length) continue
             if (i === row && j === col) continue
 
-            if (gBoard[i][j].isMine) {
-                gBoard[row][col].minesAroundCount++
-            }
+            if (gBoard[i][j].isMine) gBoard[row][col].minesAroundCount++
+            negs.push({ i, j })
         }
     }
+    return negs
 }
 
 function renderBoard(mat, selector) {
@@ -125,38 +136,33 @@ function renderBoard(mat, selector) {
             var cellClass = getClassName({ i, j })
 
             if (gBoard[i][j].isMine) cellClass += ' mine'
-            else if (currCell.minesAroundCount === 0) cellClass += ' no-negs'
+            else if (!currCell.minesAroundCount) cellClass += ' no-negs'
 
             strHTML += `<td class="cell ${cellClass}"`
 
-
-            strHTML += `onclick="onCellClicked(this,${i},${j})" oncontextmenu="onCellMarked(this,${i},${j})">`
+            strHTML += `onclick="onCellClicked(this,${i},${j})" 
+                        oncontextmenu="onCellMarked(this,${i},${j})">`
 
             strHTML += '</td>'
         }
         strHTML += '</tr>'
     }
     strHTML += '</tbody></table>'
+
     const elContainer = document.querySelector(selector)
     elContainer.innerHTML = strHTML
 }
 
-function renderLevels() {
-    var strHTML = `
-    
-        <div class="level beginner" onclick="onLevelsClick(this)">Beginner</div> 
-        <div class="level medium" onclick="onLevelsClick(this)">Medium</div>
-        <div class="level expert" onclick="onLevelsClick(this)">Expert</div>
-        `
-    const elLevels = document.querySelector('.levels')
-    elLevels.innerHTML = strHTML
-}
-
 function onLevelsClick(click) {
+    gGame.secsPassed = 0
+    gGame.lives = 3
+    clearInterval(gIntervalSecs)
+
     switch (click.innerText) {
         case 'Beginner':
             gLevel.SIZE = 4
             gLevel.MINES = 2
+            gGame.lives = 2
             break;
         case 'Medium':
             gLevel.SIZE = 8
@@ -178,16 +184,37 @@ function onCellMarked(elCell, i, j) {
     currCell.isMarked = !currCell.isMarked
 }
 
-function gameOver() {
-    gGame.isOn = false
-    clearInterval(gGame.secsPassed)
+function checkGameOver() {
+    gGame.lives--
 
-    const elGameOver = document.querySelector('.game-over')
+    const elLife = document.querySelector('.life')
+    const life = gGame.lives + '❤️'
+    const dead = '🤍'
+
+    elLife.innerText = life
+
+    if (gGame.lives) return
+
+    gGame.isOn = false
+
+    elLife.innerText = dead
+
     const elMines = document.querySelectorAll('.mine')
 
     for (var i = 0; i < gLevel.MINES; i++) {
         elMines[i].innerText = MINE_IMG
     }
-
-    elGameOver.innerText = 'game over! :('
 }
+
+
+
+function getTimer() {
+    const elTimer = document.querySelector('.timer')
+    if (!gGame.isOn) return
+
+    gGame.secsPassed++;
+    elTimer.innerText = gGame.secsPassed
+}
+
+
+
