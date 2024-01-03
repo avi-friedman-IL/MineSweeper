@@ -24,6 +24,7 @@ function onInit() {
     const elWin = document.querySelector('.win')
     elWin.style.display = 'none'
     elSafeClicks.style.display = 'block'
+    renderSubtitle()
     
     gGame.secsPassed = 0
     gGame.isOn = true
@@ -151,6 +152,7 @@ function checkGameOver(elCell) {
     gGame.lives--
     elCell.innerText = MINE_IMG
 
+    renderSubtitle()
     renderSubtitle()
 
     if (!gGame.lives) checkLose()

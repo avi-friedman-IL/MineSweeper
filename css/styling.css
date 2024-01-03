@@ -1,0 +1,217 @@
+body {
+    text-align: center;
+    background-color: #f2f2f2;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+    color: #333;
+}
+
+h2 span {
+    color: red;
+}
+
+.level,
+.safe-clicks {
+    margin: auto 0;
+    padding: 10px;
+    display: inline-block;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #8bc34a;
+    width: 150px;
+    height: 50px;
+    border-radius: 25px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.level:hover,
+.safe-clicks:hover {
+    cursor: pointer;
+    background-color: #4caf50;
+}
+
+img {
+    height: 25px;
+}
+
+table {
+    margin: auto;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.cell {
+    background-color: #9fcdf3;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #ccc;
+}
+
+.cell:hover {
+    cursor: pointer;
+    background-color: #c8e6ff;
+}
+
+h3 {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px 0;
+}
+
+.game-over,
+.win {
+    display: inline-block;
+    margin-top: 5px;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 25px;
+    padding: 10px 20px;
+}
+
+.win {
+    border-radius: 50%;
+    margin: auto;
+    display: none;
+    width: 200px;
+}
+
+.smiley-button {
+    padding: 25px;
+    display: block;
+    width: 50px;
+    font-size: 35px;
+    border-radius: 50%;
+    margin: auto;
+    transition: 1000ms;
+}
+
+.smiley-button:hover {
+    background-color: rgb(172, 245, 245);
+    cursor: pointer;
+}
+
+body {
+    text-align: center;
+    background-color: rgb(237, 217, 217);
+}
+
+h2 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 span {
+    color: red;
+}
+
+/* .level {
+    margin: auto;
+    padding-top: 20px;
+    display: inline-block; 
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: rgb(182, 220, 145);
+    width: 150px;
+    height: 50px;
+    border-radius: 20px;
+    text-align: center;
+} */
+
+.level:hover {
+    cursor: pointer;
+    background-color: #3fc4f8;
+}
+
+img {
+    height: 25px;
+}
+
+table {
+    margin: auto;
+    margin-top: 20px;
+}
+
+.cell {
+    background-color: rgb(155, 205, 249);
+    width: 40px;
+    height: 40px;
+}
+
+.cell:hover {
+    cursor: pointer;
+}
+
+h3 {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.game-over {
+    display: inline-block;
+    margin-top: 5px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 25px;
+}
+
+.win {
+    border-radius: 25px;
+    margin: auto;
+    display: none;
+    width: 200px;
+    height: 100px;
+    background-color: rgb(248, 207, 112);
+}
+
+.smiley-button {
+    padding: 25px;
+    display: block;
+    width: 50px;
+    font-size: 35px;
+    border-radius: 50%;
+    margin: auto;
+    transition: 1000ms;
+}
+
+.smiley-button:hover {
+    background-color: rgb(172, 245, 245);
+    cursor: pointer;
+}
+
+.hints {
+
+    font-size: 25px;
+}
+
+.hints:hover {
+    cursor: pointer;
+}
+
+.safe-clicks{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font: size 10px;
+    padding-top: 15px;
+    color: rgb(70, 50, 0);
+    margin: auto;
+    background-color: rgb(182, 220, 145);
+    width: 100px;
+    height: 55px;
+    border-radius: 20px;
+    transition: 1500ms;
+}
+.safe-clicks:hover{
+    cursor: pointer;
+    color: rgb(228, 210, 196);
+}

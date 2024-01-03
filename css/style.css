@@ -4,6 +4,7 @@ body {
 }
 
 h2 {
+
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -12,15 +13,20 @@ h2 span {
 }
 
 .level {
-    margin: auto;
-    padding-top: 20px;
-    display: inline-block; 
+    margin: auto 0;
+    padding: 10px;
+    display: inline-block;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    background-color: rgb(182, 220, 145);
+    background-color: #8eb264;
     width: 150px;
-    height: 50px;
-    border-radius: 20px;
+    height: 25px;
+    border-radius: 25px;
     text-align: center;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease-in-out;
 }
 
 .level:hover {
@@ -38,13 +44,15 @@ table {
 }
 
 .cell {
-    background-color: rgb(155, 205, 249);
+    background-color: #9fcdf3;
     width: 40px;
     height: 40px;
+    border: 1px solid #ccc;
 }
 
 .cell:hover {
     cursor: pointer;
+    background-color: #c8e6ff;
 }
 
 h3 {
@@ -64,12 +72,11 @@ h3 {
 }
 
 .win {
+    margin-top: 5px;
     border-radius: 25px;
-    margin: auto;
-    display: none;
-    width: 200px;
-    height: 100px;
-    background-color: rgb(248, 207, 112);
+    text-align: center;
+    font-size: 25px;
+    padding: 10px 20px;
 }
 
 .smiley-button {
@@ -83,12 +90,11 @@ h3 {
 }
 
 .smiley-button:hover {
-    background-color: rgb(172, 245, 245);
+    background-color: #8eb264;
     cursor: pointer;
 }
 
 .hints {
-
     font-size: 25px;
 }
 
@@ -96,19 +102,25 @@ h3 {
     cursor: pointer;
 }
 
-.safe-clicks{
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font: size 10px;
-    padding-top: 15px;
-    color: rgb(70, 50, 0);
-    margin: auto;
-    background-color: rgb(203, 243, 109);
-    width: 100px;
-    height: 55px;
-    border-radius: 20px;
-    transition: 1500ms;
+.safe-clicks {
+    margin: auto 0;
+    padding: 10px;
+    display: inline-block;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #8eb264;
+    width: 150px;
+    height: 25px;
+    border-radius: 25px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease-in-out;
 }
-.safe-clicks:hover{
+
+.safe-clicks:hover {
     cursor: pointer;
     color: rgb(228, 210, 196);
 }
