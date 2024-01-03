@@ -16,17 +16,20 @@ const gGame = {
     secsPassed: 0,
     lives: 2,
     isHint: false,
-    safeClicks: false
+    safeClicksCount: 3
 }
 
 function onInit() {
+    const elSafeClicks = document.querySelector('.safe-clicks')
     const elWin = document.querySelector('.win')
     elWin.style.display = 'none'
-
+    elSafeClicks.style.display = 'block'
+    
     gGame.secsPassed = 0
     gGame.isOn = true
     gGame.shownCount = 0
-
+    gGame.safeClicksCount = 3
+    
     clearInterval(gIntervalSecs)
 
     gBoard = buildBoard()
@@ -81,6 +84,14 @@ function renderBoard(mat, selector) {
     elContainer.innerHTML = strHTML
 }
 
+function renderCell(location, value) {
+    const cellSelector = '.' + getClassName(location)
+    const elCell = document.querySelector(cellSelector)
+    elCell.innerHTML = value
+    elCell.style.backgroundColor = value === ' ' ? 'rgb(155, 205, 249)' : 'azure'
+}
+
+
 function createsMines(board) {
     for (var i = 0; i < gLevel.MINES; i++) {
         var idxI = getRandomInt(0, gLevel.SIZE)
@@ -126,9 +137,11 @@ function renderSubtitle() {
 
     const elLives = document.querySelector('.lives')
     const elTimer = document.querySelector('.timer')
+    const elSafe = document.querySelector('.safe')
 
     elLives.innerText = gGame.lives ? live : dead
     elTimer.innerText = gGame.secsPassed
+    elSafe.innerText = gGame.safeClicksCount
 }
 
 
@@ -160,13 +173,13 @@ function checkWin() {
     if (!gGame.isOn) return
     const elSmileyButton = document.querySelector('.smiley-button')
     const elWin = document.querySelector('.win')
-    
+
     const winMsg = `win!!! \n 🎉 \n seconds:${gGame.secsPassed}`
 
     for (var i = 0; i < gBoard.length; i++) {
         for (var j = 0; j < gBoard[i].length; j++) {
             const currCell = gBoard[i][j]
-            if (!currCell.isShown && !currCell.isMarked 
+            if (!currCell.isShown && !currCell.isMarked
                 || currCell.isMine && !currCell.isMarked) return false
         }
     }

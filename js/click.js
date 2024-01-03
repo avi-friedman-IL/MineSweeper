@@ -27,37 +27,37 @@ function onLevelsClick(click) {
     onInit()
 }
 
-function firstClick(row, col) {
+function firstClick(i, j) {
     if (gGame.shownCount) return
-    createsMines(gBoard)
+    expandShown(i, j)
     gGame.shownCount++
-
+    
     gIntervalSecs = setInterval(getTimer, 1000)
-
-    setMinesNegsCount(row, col)
-
-    expandShown(row, col)
+    setMinesNegsCount(i, j)
+    createsMines(gBoard)
+    
+    
     renderBoard(gBoard, '.board-container')
-
+    renderCell({ i, j }, null)
 }
 
-function onCellClicked(elCell, row, col) {
-    firstClick(row, col)
+function onCellClicked(elCell, i, j) {
+    firstClick(i, j)
     gGame.shownCount++
 
-    const currCell = gBoard[row][col]
+    const currCell = gBoard[i][j]
 
     currCell.isShown = true
     currCell.minesAroundCount = null
 
     if (!gGame.isOn || currCell.minesAroundCount || currCell.isMarked) return
 
-    setMinesNegsCount(row, col)
+    setMinesNegsCount(i, j)
 
     elCell.style.backgroundColor = 'azure'
 
     if (currCell.minesAroundCount) elCell.innerText = currCell.minesAroundCount
-    if (!currCell.minesAroundCount) expandShown(row, col)
+    if (!currCell.minesAroundCount) expandShown(i, j)
     if (currCell.isMine) checkGameOver(elCell)
     checkWin()
 }
@@ -83,23 +83,31 @@ function smileyButton(click) {
     onInit()
 }
 
-function safeClicks() {
+function safeClicks(click) {
+    if (!gGame.safeClicksCount) return
+    gGame.safeClicksCount--
+    
+    click.style.color = getRandomColor()
+    click.style.backgroundColor = getRandomColor()
+    if (!gGame.safeClicksCount) click.style.display = 'none'
+    
     var cell = getSafeClicks()
-    renderCell(cell, '😀')
+    renderCell(cell, '👌')
+    
     setTimeout(() => {
         renderCell(cell, ' ')
     }, 1000)
+    renderSubtitle()
 }
 
 function getSafeClicks() {
-    gGame.safeClicks = true
-    var safes = []
+    const safes = []
     for (var i = 0; i < gBoard.length; i++) {
         for (var j = 0; j < gBoard[i].length; j++) {
             const currCell = gBoard[i][j]
             if (!currCell.isShown && !currCell.isMine) safes.push({ i, j })
         }
     }
-    var idx = getRandomInt(0, safes.length)
+    const idx = getRandomInt(0, safes.length)
     return safes[idx]
 }

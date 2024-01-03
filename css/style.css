@@ -77,10 +77,13 @@ h3 {
     display: block;
     width: 50px;
     font-size: 35px;
+    border-radius: 50%;
     margin: auto;
+    transition: 1000ms;
 }
 
 .smiley-button:hover {
+    background-color: rgb(172, 245, 245);
     cursor: pointer;
 }
 
@@ -94,11 +97,18 @@ h3 {
 }
 
 .safe-clicks{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font: size 10px;
+    padding-top: 15px;
+    color: rgb(70, 50, 0);
     margin: auto;
-    background-color: aqua;
+    background-color: rgb(203, 243, 109);
     width: 100px;
-    height: 30px;
+    height: 55px;
+    border-radius: 20px;
+    transition: 1500ms;
 }
 .safe-clicks:hover{
     cursor: pointer;
+    color: rgb(228, 210, 196);
 }
