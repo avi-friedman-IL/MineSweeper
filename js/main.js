@@ -15,6 +15,7 @@ const gGame = {
     markedCount: 0,
     secsPassed: 0,
     lives: 2,
+    isHint: false
 }
 
 function onInit() {
@@ -129,36 +130,39 @@ function renderSubtitle() {
     elTimer.innerText = gGame.secsPassed
 }
 
-function smileyButton() {
-    // const SMILEYS = ['😂', '🙁', '😒']
+function smileyButton(click) {
+    click.innerText = '😀'
     gGame.lives = 3
     renderSubtitle()
     onInit()
 }
 
 function checkGameOver(elCell) {
+    const elSmileyButton = document.querySelector('.smiley-button')
     gGame.lives--
     elCell.innerText = MINE_IMG
-
+    
     renderSubtitle()
-
+    
     if (!gGame.lives) checkLose()
-
+    
+    elSmileyButton.innerText = gGame.lives ? '😀' : '🙁'
 }
 
 function checkLose() {
     const elMines = document.querySelectorAll('.mine')
     gGame.isOn = false
-
+    
     renderSubtitle()
     for (var i = 0; i < gLevel.MINES; i++) {
         elMines[i].innerText = MINE_IMG
     }
-
+    
 }
 
 function checkWin() {
     if (!gGame.isOn) return
+    const elSmileyButton = document.querySelector('.smiley-button')
     const elWin = document.querySelector('.win')
     const winMsg = `win!!! \n 🎉 \n seconds:${gGame.secsPassed}`
 
@@ -172,6 +176,7 @@ function checkWin() {
     clearInterval(gIntervalSecs)
     elWin.style.display = 'block'
     elWin.innerText = winMsg
+    elSmileyButton.innerText = '💯'
 }
 
 function getTimer() {

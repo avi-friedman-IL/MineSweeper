@@ -4,9 +4,10 @@ body {
 }
 
 h2 {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-h2 span{
+
+h2 span {
     color: red;
 }
 
@@ -16,37 +17,45 @@ h2 span{
     color: rgb(0, 0, 0);
     padding: 50px;
 }
+
 .level {
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-   
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
     display: inline-block;
     background-color: rgb(182, 220, 145);
     width: 150px;
     height: 50px;
     border-radius: 20px;
 }
+
 .level:hover {
     cursor: pointer;
     background-color: #3fc4f8;
 }
+
 img {
     height: 25px;
 }
+
 table {
     margin: auto;
     margin-top: 20px;
 }
+
 .cell {
     background-color: rgb(155, 205, 249);
     width: 40px;
     height: 40px;
 }
+
 .cell:hover {
     cursor: pointer;
 }
+
 h3 {
     margin-top: 10px;
 }
+
 .game-over {
     display: inline-block;
     margin-top: 5px;
@@ -54,6 +63,7 @@ h3 {
     text-align: center;
     font-size: 25px;
 }
+
 .win {
     border-radius: 25px;
     margin: auto;
@@ -62,10 +72,21 @@ h3 {
     height: 100px;
     background-color: rgb(248, 207, 112);
 }
+
 .smiley-button {
     display: inline-block;
     font-size: 35px;
 }
+
 .smiley-button:hover {
+    cursor: pointer;
+}
+
+.hints {
+    
+    font-size: 25px;
+}
+
+.hints:hover {
     cursor: pointer;
 }
