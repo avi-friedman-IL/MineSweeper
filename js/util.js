@@ -4,7 +4,7 @@ function renderCell(location, value) {
     const cellSelector = '.' + getClassName(location)
     const elCell = document.querySelector(cellSelector)
     elCell.innerHTML = value
-    elCell.style.backgroundColor = 'azure'
+    elCell.style.backgroundColor = value === ' ' ? 'rgb(155, 205, 249)' : 'azure'
 }
 
 function getClassName(position) {

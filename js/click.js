@@ -87,7 +87,7 @@ function safeClicks() {
     var cell = getSafeClicks()
     renderCell(cell, '😀')
     setTimeout(() => {
-        renderCell(cell, '')
+        renderCell(cell, ' ')
     }, 1000)
 }
 
