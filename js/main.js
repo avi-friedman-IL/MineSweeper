@@ -15,7 +15,8 @@ const gGame = {
     markedCount: 0,
     secsPassed: 0,
     lives: 2,
-    isHint: false
+    isHint: false,
+    safeClicks: false
 }
 
 function onInit() {
@@ -25,7 +26,7 @@ function onInit() {
     gGame.secsPassed = 0
     gGame.isOn = true
     gGame.shownCount = 0
-    
+
     clearInterval(gIntervalSecs)
 
     gBoard = buildBoard()
@@ -63,12 +64,12 @@ function renderBoard(mat, selector) {
             var cellClass = getClassName({ i, j })
 
             if (gBoard[i][j].isMine) cellClass += ' mine'
-            else if (!currCell.minesAroundCount) cellClass += ' no-negs'
+            // else if (!currCell.minesAroundCount) cellClass += ' no-negs'
 
             strHTML += `<td class="cell ${cellClass}"`
 
             strHTML += `onclick="onCellClicked(this,${i},${j})" 
-            oncontextmenu="onCellMarked(this,${i},${j})">`
+            oncontextmenu="onCellMarked(event,this,${i},${j})">`
 
             strHTML += '</td>'
         }
@@ -130,46 +131,43 @@ function renderSubtitle() {
     elTimer.innerText = gGame.secsPassed
 }
 
-function smileyButton(click) {
-    click.innerText = '😀'
-    gGame.lives = 3
-    renderSubtitle()
-    onInit()
-}
+
 
 function checkGameOver(elCell) {
     const elSmileyButton = document.querySelector('.smiley-button')
     gGame.lives--
     elCell.innerText = MINE_IMG
-    
+
     renderSubtitle()
-    
+
     if (!gGame.lives) checkLose()
-    
+
     elSmileyButton.innerText = gGame.lives ? '😀' : '🙁'
 }
 
 function checkLose() {
     const elMines = document.querySelectorAll('.mine')
     gGame.isOn = false
-    
+
     renderSubtitle()
     for (var i = 0; i < gLevel.MINES; i++) {
         elMines[i].innerText = MINE_IMG
     }
-    
+
 }
 
 function checkWin() {
     if (!gGame.isOn) return
     const elSmileyButton = document.querySelector('.smiley-button')
     const elWin = document.querySelector('.win')
+    
     const winMsg = `win!!! \n 🎉 \n seconds:${gGame.secsPassed}`
 
     for (var i = 0; i < gBoard.length; i++) {
         for (var j = 0; j < gBoard[i].length; j++) {
             const currCell = gBoard[i][j]
-            if (!currCell.isShown && !currCell.isMarked) return false
+            if (!currCell.isShown && !currCell.isMarked 
+                || currCell.isMine && !currCell.isMarked) return false
         }
     }
 

@@ -9,15 +9,16 @@
 </head>
 
 <body onload="onInit()">
-    <div class="levels">
+    <!-- <div class="levels"> -->
         <div class="level beginner" onclick="onLevelsClick(this)">Beginner</div>
         <div class="level medium" onclick="onLevelsClick(this)">Medium</div>
         <div class="level expert" onclick="onLevelsClick(this)">Expert</div>
 
-    </div>
+    <!-- </div> -->
 
     <div class="smiley-button" onclick="smileyButton(this)">😀</div>
-    <!-- <div class="hints" onclick="onHintsClick(this”)">🎆🎆🎆</div> -->
+    <div class="safe-clicks" onclick="safeClicks()">safe clicks</div>
+    <!-- <div class="hints" onclick="onHintsClick(this)">🎆🎆🎆</div> -->
 
     <h2>
         | Life:
@@ -25,19 +26,19 @@
         | timer:
         <span class="timer">0</span> |
     </h2>
-
-    <div class="board-container"></div>
-    <div class="game-over"></div>
-
     <div class="game-over">
         <div class="lose"></div>
         <div class="win"></div>
     </div>
+
+    <div class="board-container"></div>
+    <div class="game-over"></div>
+
     <h3>avi friedman</h3>
 
     <script src="js/util.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/game.js"></script>
+    <script src="js/click.js"></script>
 </body>
 
 </html>
