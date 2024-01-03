@@ -86,7 +86,9 @@ function smileyButton(click) {
 function safeClicks() {
     var cell = getSafeClicks()
     renderCell(cell, '😀')
-    setTimeout()
+    setTimeout(() => {
+        renderCell(cell, '')
+    }, 1000)
 }
 
 function getSafeClicks() {
