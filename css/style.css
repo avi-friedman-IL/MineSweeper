@@ -1,6 +1,23 @@
 body {
     text-align: center;
-    background-color: rgb(237, 217, 217);
+    background-color: rgb(96, 28, 28);
+}
+
+.night-mode {
+    margin-left: 2px;
+    padding: 15px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #c3d8ab;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    color: rgb(249, 97, 97);
+    margin-left: 5px;
+    border-radius: 10%;
+}
+
+.night-mode:hover {
+    cursor: pointer;
 }
 
 h2 {
@@ -20,7 +37,6 @@ h2 span {
     background-color: #8eb264;
     width: 150px;
     height: 25px;
-    border-radius: 25px;
     text-align: center;
     color: white;
     font-weight: bold;
@@ -33,6 +49,7 @@ h2 span {
     cursor: pointer;
     background-color: #3fc4f8;
 }
+
 
 img {
     height: 25px;
@@ -72,11 +89,15 @@ h3 {
 }
 
 .win {
-    margin-top: 5px;
+    left: auto;
+    background-color: #d7e1ea;
+    position:absolute;
+    /* margin-top: 5px; */
     border-radius: 25px;
     text-align: center;
     font-size: 25px;
     padding: 10px 20px;
+    transition: 2000ms;
 }
 
 .smiley-button {
@@ -86,6 +107,7 @@ h3 {
     font-size: 35px;
     border-radius: 50%;
     margin: auto;
+    margin-top: 8px;
     transition: 1000ms;
 }
 
@@ -95,6 +117,7 @@ h3 {
 }
 
 .hints {
+    display: inline-block;
     font-size: 25px;
 }
 
@@ -105,7 +128,7 @@ h3 {
 .safe-clicks {
     margin: auto 0;
     padding: 10px;
-    display: inline-block;
+    display: block;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     background-color: #8eb264;
     width: 150px;

@@ -1,5 +1,31 @@
 'use strict'
 
+function renderBoard(mat, selector) {
+
+    var strHTML = '<table><tbody>'
+    for (var i = 0; i < mat.length; i++) {
+
+        strHTML += '<tr>'
+        for (var j = 0; j < mat[0].length; j++) {
+
+            setMinesNegsCount(i, j)
+
+            var cellClass = getClassName({ i, j })
+
+            if (gBoard[i][j].isMine) cellClass += ' mine'
+
+            strHTML += `<td class="cell ${cellClass}"`
+            strHTML += `onclick="onCellClicked(this,${i},${j})" 
+            oncontextmenu="onCellMarked(event,this,${i},${j})">`
+            strHTML += '</td>'
+        }
+        strHTML += '</tr>'
+    }
+    strHTML += '</tbody></table>'
+
+    const elContainer = document.querySelector(selector)
+    elContainer.innerHTML = strHTML
+}
 
 function getClassName(position) {
     const className = `cell-${position.i}-${position.j}`

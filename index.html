@@ -6,30 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mine Sweeper(avi friedman)</title>
     <link rel="stylesheet" href="css/style.css">
-    <!-- <link rel="stylesheet" href="css/styling.css"> -->
 </head>
 
 <body onload="onInit()">
-    <!-- <div class="levels"> -->
-        <div class="level beginner" onclick="onLevelsClick(this)">Beginner</div>
-        <div class="level medium" onclick="onLevelsClick(this)">Medium</div>
-        <div class="level expert" onclick="onLevelsClick(this)">Expert</div>
 
-    <!-- </div> -->
+    <div class="night-mode" onclick="onNightModeClick(this)">Night mode</div>
+    
+    <div class="level beginner" onclick="onLevelsClick(this)">Beginner</div>
+    <div class="level medium" onclick="onLevelsClick(this)">Medium</div>
+    <div class="level expert" onclick="onLevelsClick(this)">Expert</div>
 
     <div class="smiley-button" onclick="smileyButton(this)">😀</div>
     <div class="safe-clicks" onclick="safeClicks(this)">safe clicks</div>
-    <!-- <div class="hints" onclick="onHintsClick(this)">🎆🎆🎆</div> -->
+    
+    <div class="hints" onclick="onHintsClick(this)">🔍</div>
+    <div class="hints" onclick="onHintsClick(this)">🔍</div>
+    <div class="hints" onclick="onHintsClick(this)">🔍</div>
+
 
     <h2>
-         Life:
+        Life:
         <span class="lives">3❤️</span>
         | timer:
-        <span class="timer">0</span> 
+        <span class="timer">0</span>
         | safe clicks
-        <span class="safe">3</span> 
-        
+        <span class="safe">3</span>
+
     </h2>
+    
     <div class="game-over">
         <div class="lose"></div>
         <div class="win"></div>
@@ -43,6 +47,7 @@
     <script src="js/util.js"></script>
     <script src="js/main.js"></script>
     <script src="js/click.js"></script>
+    
 </body>
 
 </html>

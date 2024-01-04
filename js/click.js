@@ -1,9 +1,7 @@
 'use strict'
 
 function onLevelsClick(click) {
-    gGame.secsPassed = 0
     clearInterval(gIntervalSecs)
-    gGame.lives = 3
 
     switch (click.innerText) {
         case 'Beginner':
@@ -21,24 +19,22 @@ function onLevelsClick(click) {
             break;
     }
 
-    // const elLevels = document.querySelector('.levels')
-    // elLevels.style.display = 'none'
     renderSubtitle()
     onInit()
 }
 
 function firstClick(i, j) {
     if (gGame.shownCount) return
-    expandShown(i, j)
+    gBoard[i][j].isShown = true
     gGame.shownCount++
-    
-    gIntervalSecs = setInterval(getTimer, 1000)
+
     setMinesNegsCount(i, j)
+    gIntervalSecs = setInterval(timer, 1000)
+    expandShown(i, j)
     createsMines(gBoard)
-    
-    
+
     renderBoard(gBoard, '.board-container')
-    renderCell({ i, j }, null)
+    renderCell({ i, j }, '')
 }
 
 function onCellClicked(elCell, i, j) {
@@ -48,7 +44,7 @@ function onCellClicked(elCell, i, j) {
     const currCell = gBoard[i][j]
 
     currCell.isShown = true
-    currCell.minesAroundCount = null
+    currCell.minesAroundCount = ''
 
     if (!gGame.isOn || currCell.minesAroundCount || currCell.isMarked) return
 
@@ -56,15 +52,22 @@ function onCellClicked(elCell, i, j) {
 
     elCell.style.backgroundColor = 'azure'
 
+    if (gGame.isHint) isHint(i, j)
+
     if (currCell.minesAroundCount) elCell.innerText = currCell.minesAroundCount
     if (!currCell.minesAroundCount) expandShown(i, j)
     if (currCell.isMine) checkGameOver(elCell)
-    checkWin()
+    renderSubtitle()
 }
 
+function isHint(i, j) {
+    setTimeout(() => {
+        gGame.isHint = false
+        renderCell({ i, j }, ' ')
+    }, 1000);
+}
 
 function onCellMarked(event, elCell, i, j) {
-
     if (!gGame.isOn) return
     const currCell = gBoard[i][j]
     var mark = currCell.isMarked ? '' : '🚩'
@@ -86,14 +89,14 @@ function smileyButton(click) {
 function safeClicks(click) {
     if (!gGame.safeClicksCount) return
     gGame.safeClicksCount--
-    
+
     click.style.color = getRandomColor()
     click.style.backgroundColor = getRandomColor()
-    if (!gGame.safeClicksCount) click.style.display = 'none'
-    
+    if (!gGame.safeClicksCount) click.style.opacity = 0
+
     var cell = getSafeClicks()
     renderCell(cell, '👌')
-    
+
     setTimeout(() => {
         renderCell(cell, ' ')
     }, 1000)
@@ -111,3 +114,11 @@ function getSafeClicks() {
     const idx = getRandomInt(0, safes.length)
     return safes[idx]
 }
+
+function onHintsClick(elClick) {
+    if(!gGame.hintsCount) return
+    elClick.innerText = '💡'
+    gGame.isHint = !gGame.isHint
+    gGame.hintsCount--
+}
+
