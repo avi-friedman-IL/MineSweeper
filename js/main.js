@@ -15,24 +15,28 @@ const gGame = {
     shownCount: 0,
     markedCount: 0,
     secsPassed: 0,
-    hintsCount:3,
+    hintsCount: 3,
     lives: 2,
     safeClicksCount: 3
 }
 
 function onInit() {
-renderSafeAndHintsClicks()
+    renderSafeAndHintsClicks()
+    restartGGame()
+    renderSubtitle()
+    clearInterval(gIntervalSecs)
+
+    gBoard = buildBoard()
+    renderBoard(gBoard, '.board-container')
+}
+
+function restartGGame() {
     gGame.lives = gLevel.SIZE === 4 ? 2 : 3
     gGame.isOn = true
     gGame.shownCount = 0
     gGame.secsPassed = 0
     gGame.safeClicksCount = 3
     gGame.hintsCount = 3
-    renderSubtitle()
-    clearInterval(gIntervalSecs)
-
-    gBoard = buildBoard()
-    renderBoard(gBoard, '.board-container')
 }
 
 function buildBoard() {
@@ -51,14 +55,6 @@ function buildBoard() {
     }
     return board
 }
-
-function renderCell(location, value) {
-    const cellSelector = '.' + getClassName(location)
-    const elCell = document.querySelector(cellSelector)
-    elCell.innerHTML = value
-    elCell.style.backgroundColor = value === ' ' ? 'rgb(155, 205, 249)' : 'azure'
-}
-
 
 function createsMines(board) {
     for (var i = 0; i < gLevel.MINES; i++) {
@@ -86,6 +82,7 @@ function setMinesNegsCount(row, col) {
 }
 
 function expandShown(row, col) {
+    checkWin()
     for (var i = row - 1; i <= row + 1; i++) {
         if (i < 0 || i >= gBoard.length) continue
 
@@ -99,9 +96,15 @@ function expandShown(row, col) {
 
             if (gGame.isHint) isHint()
             else renderCell({ i, j }, currCell.minesAroundCount)
-            checkWin()
         }
     }
+}
+
+function renderCell(location, value) {
+    const cellSelector = '.' + getClassName(location)
+    const elCell = document.querySelector(cellSelector)
+    elCell.innerHTML = value
+    elCell.style.backgroundColor = (value === ' ') ? 'rgb(155, 205, 249)' : 'azure'
 }
 
 function renderSubtitle() {
@@ -112,25 +115,23 @@ function renderSubtitle() {
     const elTimer = document.querySelector('.timer')
     const elSafe = document.querySelector('.safe')
     const elWin = document.querySelector('.win')
-    
+
     elLives.innerText = gGame.lives ? live : dead
     elTimer.innerText = gGame.secsPassed
     elSafe.innerText = gGame.safeClicksCount
     elWin.style.display = 'none'
-    
+
 }
 
-function renderSafeAndHintsClicks(){
+function renderSafeAndHintsClicks() {
     const elSafeClicks = document.querySelector('.safe-clicks')
     const elHints = document.querySelectorAll('.hints')
-    
+
     elSafeClicks.style.opacity = 1
-    for (var i = 0; i < 3; i++) {        
+    for (var i = 0; i < 3; i++) {
         elHints[i].innerText = '🔍'
     }
 }
-
-
 
 function checkGameOver(elCell) {
     const elSmileyButton = document.querySelector('.smiley-button')
@@ -184,7 +185,6 @@ function timer() {
     gGame.secsPassed++;
     elTimer.innerText = gGame.secsPassed
 }
-
 function onNightModeClick(click) {
     const normal = 'Normal mode'
     const night = 'Night mode'

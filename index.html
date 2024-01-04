@@ -10,15 +10,36 @@
 
 <body onload="onInit()">
 
+    <div class="game-rules" onclick="onGameRules(this)">game rules
+        <p class="game">
+            מטרת המשחק היא לחשוף את כל התאים מבלי לפוצץ מוקשים שמסתתרים שם.
+
+            ישנם 3 רמות למשחק ברמת
+            מתחיל 2 מוקשים
+            בינוני 14 מוקשים
+            מתקדם 32 מוקשים
+
+            בלחיצה על תא יוצג מה מסתתר תחתיו. אם הוא ריק יוצגו כל התאים השכנים שלו עם מספר
+
+            המספר נותן אינדיקציה כמה מוקשים נמצאים בשכנות לתא הממוספר
+
+            יש 3 כפתורים של רמז שבלחיצה על כל אחד מהם ולאחר מכן לחיצה על תא תציג לשניה מה שתחתיו
+
+            בנוסף לכך יש כפתור של לחיצה בטוחה שבלחיצה עליו יוצג לשניה תא שבטוח ללחיצה
+
+            ניצחון: כאשר כל התאים חשופים והמוקשים מסומנים. הסימון מתבצע על ידי קליק ימני של העכבר
+        </p>
+    </div>
+
     <div class="night-mode" onclick="onNightModeClick(this)">Night mode</div>
-    
+
     <div class="level beginner" onclick="onLevelsClick(this)">Beginner</div>
     <div class="level medium" onclick="onLevelsClick(this)">Medium</div>
     <div class="level expert" onclick="onLevelsClick(this)">Expert</div>
 
     <div class="smiley-button" onclick="smileyButton(this)">😀</div>
     <div class="safe-clicks" onclick="safeClicks(this)">safe clicks</div>
-    
+
     <div class="hints" onclick="onHintsClick(this)">🔍</div>
     <div class="hints" onclick="onHintsClick(this)">🔍</div>
     <div class="hints" onclick="onHintsClick(this)">🔍</div>
@@ -33,7 +54,7 @@
         <span class="safe">3</span>
 
     </h2>
-    
+
     <div class="game-over">
         <div class="lose"></div>
         <div class="win"></div>
@@ -47,7 +68,7 @@
     <script src="js/util.js"></script>
     <script src="js/main.js"></script>
     <script src="js/click.js"></script>
-    
+
 </body>
 
 </html>

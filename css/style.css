@@ -91,7 +91,7 @@ h3 {
 .win {
     left: auto;
     background-color: #d7e1ea;
-    position:absolute;
+    position: absolute;
     /* margin-top: 5px; */
     border-radius: 25px;
     text-align: center;
@@ -147,3 +147,29 @@ h3 {
     cursor: pointer;
     color: rgb(228, 210, 196);
 }
+
+.game-rules {
+    display: inline-block;
+    margin-right: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 25%;
+}
+
+.game-rules:hover{
+    cursor: pointer;
+    background-color: #c3d8ab;
+}
+
+.game{
+    display: none;
+    background-color: #d7e1ea;
+    position: absolute;
+    /* margin-top: 5px; */
+    border-radius: 25px;
+    text-align: center;
+    padding: 10px 20px;
+    transition: 2000ms;
+
+}
+

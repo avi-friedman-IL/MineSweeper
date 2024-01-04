@@ -58,21 +58,16 @@ function onCellClicked(elCell, i, j) {
     if (!currCell.minesAroundCount) expandShown(i, j)
     if (currCell.isMine) checkGameOver(elCell)
     renderSubtitle()
+    checkWin()
 }
 
-function isHint(i, j) {
-    setTimeout(() => {
-        gGame.isHint = false
-        renderCell({ i, j }, ' ')
-    }, 1000);
-}
 
 function onCellMarked(event, elCell, i, j) {
     if (!gGame.isOn) return
     const currCell = gBoard[i][j]
     var mark = currCell.isMarked ? '' : '🚩'
-
     elCell.innerText = mark
+
     currCell.isMarked = !currCell.isMarked
     checkWin()
     event.preventDefault()
@@ -115,10 +110,23 @@ function getSafeClicks() {
     return safes[idx]
 }
 
+function isHint(i, j) {
+    setTimeout(() => {
+        gGame.isHint = false
+        renderCell({ i, j }, ' ')
+    }, 1000)
+}
+
 function onHintsClick(elClick) {
-    if(!gGame.hintsCount) return
+    if (!gGame.hintsCount) return
     gGame.hintsCount--
     elClick.innerText = '💡'
     gGame.isHint = !gGame.isHint
 }
+var gIsGameRules = false
 
+function onGameRules(click) {
+    gIsGameRules = !gIsGameRules
+    const elGame = document.querySelector('.game')
+    elGame.style.display = gIsGameRules ? 'block' : 'none'
+}
