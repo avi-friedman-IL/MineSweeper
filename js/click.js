@@ -117,8 +117,8 @@ function getSafeClicks() {
 
 function onHintsClick(elClick) {
     if(!gGame.hintsCount) return
+    gGame.hintsCount--
     elClick.innerText = '💡'
     gGame.isHint = !gGame.isHint
-    gGame.hintsCount--
 }
 
