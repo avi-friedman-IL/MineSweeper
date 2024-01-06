@@ -2,6 +2,7 @@
 var gBoard
 var gIntervalSecs
 
+const EMPTY = ' '
 const MINE_IMG = '💣'
 
 const gLevel = {
@@ -69,6 +70,7 @@ function createsMines(board) {
 }
 
 function setMinesNegsCount(row, col) {
+
     for (var i = row - 1; i <= row + 1; i++) {
         if (i < 0 || i >= gBoard.length) continue
         for (var j = col - 1; j <= col + 1; j++) {
@@ -82,6 +84,7 @@ function setMinesNegsCount(row, col) {
 }
 
 function expandShown(row, col) {
+    const negs = []
     checkWin()
     for (var i = row - 1; i <= row + 1; i++) {
         if (i < 0 || i >= gBoard.length) continue
@@ -96,15 +99,18 @@ function expandShown(row, col) {
 
             if (gGame.isHint) isHint()
             else renderCell({ i, j }, currCell.minesAroundCount)
+
+            negs.push({ i, j })
         }
     }
+    return negs
 }
 
 function renderCell(location, value) {
     const cellSelector = '.' + getClassName(location)
     const elCell = document.querySelector(cellSelector)
     elCell.innerHTML = value
-    elCell.style.backgroundColor = (value === ' ') ? 'rgb(155, 205, 249)' : 'azure'
+    elCell.style.backgroundColor = (value === EMPTY) ? 'rgb(155, 205, 249)' : 'azure'
 }
 
 function renderSubtitle() {

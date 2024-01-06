@@ -57,6 +57,7 @@ function onCellClicked(elCell, i, j) {
     if (currCell.minesAroundCount) elCell.innerText = currCell.minesAroundCount
     if (!currCell.minesAroundCount) expandShown(i, j)
     if (currCell.isMine) checkGameOver(elCell)
+
     renderSubtitle()
     checkWin()
 }
@@ -113,7 +114,7 @@ function getSafeClicks() {
 function isHint(i, j) {
     setTimeout(() => {
         gGame.isHint = false
-        renderCell({ i, j }, ' ')
+        renderCell({ i, j }, EMPTY)
     }, 1000)
 }
 
@@ -126,7 +127,27 @@ function onHintsClick(elClick) {
 var gIsGameRules = false
 
 function onGameRules(click) {
+    const text = ` 
+   מטרת המשחק היא לחשוף את כל התאים מבלי לפוצץ מוקשים שמסתתרים שם.
+
+   ישנם 3 רמות למשחק 
+   מתחיל 2 מוקשים
+   בינוני 14 מוקשים
+   מתקדם 32 מוקשים
+
+   בלחיצה על תא יוצג מה מסתתר תחתיו. אם הוא ריק יוצגו כל התאים השכנים שלו עם מספר
+
+   המספר נותן אינדיקציה כמה מוקשים נמצאים בשכנות לתא הממוספר
+
+   יש 3 כפתורים של רמז שבלחיצה על כל אחד מהם ולאחר מכן לחיצה על תא תציג לשניה מה שתחתיו
+
+   בנוסף לכך יש כפתור של לחיצה בטוחה שבלחיצה עליו יוצג לשניה תא שבטוח ללחיצה
+
+   ניצחון: כאשר כל התאים חשופים והמוקשים מסומנים. הסימון מתבצע על ידי קליק ימני של העכבר
+`
     gIsGameRules = !gIsGameRules
-    const elGame = document.querySelector('.game')
+    const elGame = document.querySelector('.text')
+    elGame.innerText = text
     elGame.style.display = gIsGameRules ? 'block' : 'none'
+
 }

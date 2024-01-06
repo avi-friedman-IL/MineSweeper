@@ -161,15 +161,15 @@ h3 {
     background-color: #c3d8ab;
 }
 
-.game{
+.text{
     display: none;
     background-color: #d7e1ea;
     position: absolute;
-    /* margin-top: 5px; */
+    width: 150px;
+    height: 600px;
     border-radius: 25px;
     text-align: center;
     padding: 10px 20px;
-    transition: 2000ms;
 
 }
 
