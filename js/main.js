@@ -1,6 +1,7 @@
 'use strict'
 var gBoard
 var gIntervalSecs
+var gTime
 
 const EMPTY = ' '
 const MINE_IMG = '💣'
@@ -97,11 +98,26 @@ function expandShown(row, col) {
 
             currCell.isShown = true
 
-            if (gGame.isHint) isHint()
-            else renderCell({ i, j }, currCell.minesAroundCount)
+            renderCell({ i, j }, currCell.minesAroundCount)
 
             negs.push({ i, j })
         }
+    }
+    if (gGame.isHint) {
+        setTimeout(() => {
+            for (var i = row - 1; i <= row + 1; i++) {
+                if (i < 0 || i >= gBoard.length) continue
+
+                for (var j = col - 1; j <= col + 1; j++) {
+                    const currCell = gBoard[i][j]
+
+                    if (j < 0 || j >= gBoard[0].length) continue
+                    if (i === row && j === col || currCell.isMarked) continue
+
+                    renderCell({ i, j }, EMPTY)
+                }
+            }
+        }, 1000)
     }
     return negs
 }
@@ -169,7 +185,6 @@ function checkWin() {
     const elWin = document.querySelector('.win')
 
     const winMsg = `win!!! \n 🎉 \n seconds:${gGame.secsPassed}`
-
     for (var i = 0; i < gBoard.length; i++) {
         for (var j = 0; j < gBoard[i].length; j++) {
             const currCell = gBoard[i][j]
@@ -179,9 +194,11 @@ function checkWin() {
     }
 
     clearInterval(gIntervalSecs)
+
     elWin.style.display = 'block'
     elWin.innerText = winMsg
     elSmileyButton.innerText = '💯'
+
 }
 
 function timer() {
