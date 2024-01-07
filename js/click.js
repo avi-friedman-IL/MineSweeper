@@ -52,7 +52,7 @@ function onCellClicked(elCell, i, j) {
 
     elCell.style.backgroundColor = 'azure'
 
-    if (gGame.isHint) isHint(i, j)
+    if (gGame.isHint ) ifIsHint(i, j)
 
     if (currCell.minesAroundCount) elCell.innerText = currCell.minesAroundCount
     if (!currCell.minesAroundCount) expandShown(i, j)
@@ -111,7 +111,7 @@ function getSafeClicks() {
     return safes[idx]
 }
 
-function isHint(i, j) {
+function ifIsHint(i, j) {
     setTimeout(() => {
         gGame.isHint = false
         renderCell({ i, j }, EMPTY)
@@ -119,6 +119,7 @@ function isHint(i, j) {
 }
 
 function onHintsClick(elClick) {
+    
     if (!gGame.hintsCount) return
     gGame.hintsCount--
     elClick.innerText = '💡'

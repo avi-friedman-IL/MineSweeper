@@ -74,6 +74,7 @@ function setMinesNegsCount(row, col) {
 
     for (var i = row - 1; i <= row + 1; i++) {
         if (i < 0 || i >= gBoard.length) continue
+        
         for (var j = col - 1; j <= col + 1; j++) {
 
             if (j < 0 || j >= gBoard[0].length) continue
@@ -96,7 +97,7 @@ function expandShown(row, col) {
             if (j < 0 || j >= gBoard[0].length) continue
             if (i === row && j === col || currCell.isMarked) continue
 
-            currCell.isShown = true
+            if (!gGame.isHint) currCell.isShown = true
 
             renderCell({ i, j }, currCell.minesAroundCount)
 
@@ -110,10 +111,10 @@ function expandShown(row, col) {
 
                 for (var j = col - 1; j <= col + 1; j++) {
                     const currCell = gBoard[i][j]
-
                     if (j < 0 || j >= gBoard[0].length) continue
                     if (i === row && j === col || currCell.isMarked) continue
-
+                    if (currCell.isShown) continue
+                    
                     renderCell({ i, j }, EMPTY)
                 }
             }
