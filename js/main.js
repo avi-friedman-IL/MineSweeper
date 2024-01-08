@@ -58,13 +58,13 @@ function buildBoard() {
     return board
 }
 
-function createsMines(board) {
+function createMines(board) {
     for (var i = 0; i < gLevel.MINES; i++) {
 
-        var idxI = getRandomInt(0, gLevel.SIZE)
-        var idxJ = getRandomInt(0, gLevel.SIZE)
+        var rowIdx = getRandomInt(0, gLevel.SIZE)
+        var colIdx = getRandomInt(0, gLevel.SIZE)
 
-        const currCell = board[idxI][idxJ]
+        const currCell = board[rowIdx][colIdx]
         if (!currCell.isMine && !currCell.isShown) currCell.isMine = true
         else i -= 1
     }
@@ -74,7 +74,7 @@ function setMinesNegsCount(row, col) {
 
     for (var i = row - 1; i <= row + 1; i++) {
         if (i < 0 || i >= gBoard.length) continue
-        
+
         for (var j = col - 1; j <= col + 1; j++) {
 
             if (j < 0 || j >= gBoard[0].length) continue
@@ -114,7 +114,7 @@ function expandShown(row, col) {
                     if (j < 0 || j >= gBoard[0].length) continue
                     if (i === row && j === col || currCell.isMarked) continue
                     if (currCell.isShown) continue
-                    
+
                     renderCell({ i, j }, EMPTY)
                 }
             }
@@ -134,12 +134,12 @@ function renderSubtitle() {
     const live = gGame.lives + '❤️'
     const dead = gGame.lives + '🤍'
 
-    const elLives = document.querySelector('.lives')
+    const elLiveContainer = document.querySelector('.lives')
     const elTimer = document.querySelector('.timer')
     const elSafe = document.querySelector('.safe')
     const elWin = document.querySelector('.win')
 
-    elLives.innerText = gGame.lives ? live : dead
+    elLiveContainer.innerText = gGame.lives ? live : dead
     elTimer.innerText = gGame.secsPassed
     elSafe.innerText = gGame.safeClicksCount
     elWin.style.display = 'none'
@@ -189,8 +189,8 @@ function checkWin() {
     for (var i = 0; i < gBoard.length; i++) {
         for (var j = 0; j < gBoard[i].length; j++) {
             const currCell = gBoard[i][j]
-            if (!currCell.isShown && !currCell.isMarked
-                || currCell.isMine && !currCell.isMarked) return false
+            if (!currCell.isShown && !currCell.isMarked) return false
+            //    || currCell.isMine && !currCell.isMarked
         }
     }
 
@@ -209,6 +209,7 @@ function timer() {
     gGame.secsPassed++;
     elTimer.innerText = gGame.secsPassed
 }
+
 function onNightModeClick(click) {
     const normal = 'Normal mode'
     const night = 'Night mode'
