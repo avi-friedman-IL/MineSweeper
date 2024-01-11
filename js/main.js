@@ -1,7 +1,6 @@
 'use strict'
 var gBoard
 var gIntervalSecs
-var gTime
 
 const EMPTY = ' '
 const MINE_IMG = '💣'
@@ -14,17 +13,20 @@ const gLevel = {
 const gGame = {
     isOn: false,
     isHint: false,
+    isMegaHint: false,
     shownCount: 0,
     markedCount: 0,
     secsPassed: 0,
     hintsCount: 3,
     lives: 2,
-    safeClicksCount: 3
+    safeClicksCount: 3,
+    megaHintCount: 0,
+    leftClick: null
 }
 
 function onInit() {
-    renderSafeAndHintsClicks()
-    restartGGame()
+    restartButtons()
+    restartGame()
     renderSubtitle()
     clearInterval(gIntervalSecs)
 
@@ -32,13 +34,14 @@ function onInit() {
     renderBoard(gBoard, '.board-container')
 }
 
-function restartGGame() {
+function restartGame() {
     gGame.lives = gLevel.SIZE === 4 ? 2 : 3
     gGame.isOn = true
     gGame.shownCount = 0
     gGame.secsPassed = 0
     gGame.safeClicksCount = 3
     gGame.hintsCount = 3
+    gGame.megaHintCount = 0
 }
 
 function buildBoard() {
@@ -48,7 +51,7 @@ function buildBoard() {
         board[i] = []
         for (var j = 0; j < gLevel.SIZE; j++) {
             board[i][j] = {
-                minesAroundCount: '',
+                minesAroundCount: null,
                 isShown: false,
                 isMine: false,
                 isMarked: false
@@ -86,8 +89,8 @@ function setMinesNegsCount(row, col) {
 }
 
 function expandShown(row, col) {
-    const negs = []
     checkWin()
+
     for (var i = row - 1; i <= row + 1; i++) {
         if (i < 0 || i >= gBoard.length) continue
 
@@ -97,11 +100,12 @@ function expandShown(row, col) {
             if (j < 0 || j >= gBoard[0].length) continue
             if (i === row && j === col || currCell.isMarked) continue
 
-            if (!gGame.isHint) currCell.isShown = true
+            if (!gGame.isHint && !currCell.isShown && !gGame.isMegaHint) {
+                currCell.isShown = true
+                gGame.shownCount++
+            }
 
             renderCell({ i, j }, currCell.minesAroundCount)
-
-            negs.push({ i, j })
         }
     }
     if (gGame.isHint) {
@@ -120,7 +124,6 @@ function expandShown(row, col) {
             }
         }, 1000)
     }
-    return negs
 }
 
 function renderCell(location, value) {
@@ -146,13 +149,23 @@ function renderSubtitle() {
 
 }
 
-function renderSafeAndHintsClicks() {
+function restartButtons() {
     const elSafeClicks = document.querySelector('.safe-clicks')
+    const elMegaHint = document.querySelector('.mega-hint')
     const elHints = document.querySelectorAll('.hints')
 
     elSafeClicks.style.opacity = 1
+    elMegaHint.style.opacity = 1
     for (var i = 0; i < 3; i++) {
         elHints[i].innerText = '🔍'
+    }
+}
+
+function renderMegaHint() {
+    for (var i = 0; i < gBoard.length; i++) {
+        for (var j = 0; j < gBoard[i].length; j++) {
+
+        }
     }
 }
 
@@ -186,25 +199,25 @@ function checkWin() {
     const elWin = document.querySelector('.win')
 
     const winMsg = `win!!! \n 🎉 \n seconds:${gGame.secsPassed}`
+
     for (var i = 0; i < gBoard.length; i++) {
         for (var j = 0; j < gBoard[i].length; j++) {
             const currCell = gBoard[i][j]
             if (!currCell.isShown && !currCell.isMarked) return false
-            //    || currCell.isMine && !currCell.isMarked
         }
     }
-
     clearInterval(gIntervalSecs)
 
     elWin.style.display = 'block'
     elWin.innerText = winMsg
     elSmileyButton.innerText = '💯'
-
+    gGame.isOn = false
 }
 
+
 function timer() {
-    const elTimer = document.querySelector('.timer')
     if (!gGame.isOn) return
+    const elTimer = document.querySelector('.timer')
 
     gGame.secsPassed++;
     elTimer.innerText = gGame.secsPassed
@@ -212,16 +225,16 @@ function timer() {
 
 function onNightModeClick(click) {
     const normal = 'Normal mode'
-    const night = 'Night mode'
+    const dark = 'Dark mode'
 
     const elBody = document.querySelector('body')
-
-    if (click.innerText === night) {
+    
+    if (click.innerText === normal) {
         elBody.style.backgroundColor = 'rgb(222, 206, 186)'
-        click.innerText = normal
+        click.innerText = dark
     } else {
         elBody.style.backgroundColor = 'rgb(96, 28, 28)'
-        click.innerText = night
+        click.innerText = normal
     }
 }
 

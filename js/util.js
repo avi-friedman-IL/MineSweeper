@@ -15,8 +15,10 @@ function renderBoard(mat, selector) {
             if (gBoard[i][j].isMine) cellClass += ' mine'
 
             strHTML += `<td class="cell ${cellClass}"`
-            strHTML += `onclick="onCellClicked(this,${i},${j})" 
-            oncontextmenu="onCellMarked(event,this,${i},${j})">`
+            strHTML += `onclick="onCellClicked(this,${i},${j})`
+            strHTML += `,onMegaHintCellClick(this,${i},${j})`
+            strHTML += `"`
+            strHTML += `oncontextmenu="onCellMarked(event,this,${i},${j})">`
             strHTML += '</td>'
         }
         strHTML += '</tr>'

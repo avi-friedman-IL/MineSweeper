@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    background-color: rgb(96, 28, 28);
+    background-color: rgb(222, 206, 186);
 }
 
 .night-mode {
@@ -142,8 +142,31 @@ h3 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease-in-out;
 }
+.mega-hint {
+    
+    margin: auto 0px;
+    margin-top: 10px;
+    padding: 10px;
+    display: block;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #8eb264;
+    width: 150px;
+    height: 25px;
+    border-radius: 25px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease-in-out;
+}
 
 .safe-clicks:hover {
+    cursor: pointer;
+    color: rgb(228, 210, 196);
+}
+.mega-hint:hover {
     cursor: pointer;
     color: rgb(228, 210, 196);
 }

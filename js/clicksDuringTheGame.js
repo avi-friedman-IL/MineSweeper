@@ -24,7 +24,6 @@ function onLevelsClick(click) {
 }
 
 function firstClick(i, j) {
-    if (gGame.shownCount) return
     gBoard[i][j].isShown = true
     gGame.shownCount++
 
@@ -34,17 +33,18 @@ function firstClick(i, j) {
     createMines(gBoard)
 
     renderBoard(gBoard, '.board-container')
-    renderCell({ i, j }, '')
+    if (!gGame.isMegaHint) renderCell({ i, j }, '')
 }
 
 function onCellClicked(elCell, i, j) {
-    firstClick(i, j)
     gGame.shownCount++
+    if (gGame.shownCount === 1) firstClick(i, j)
+    if (gGame.isMegaHint) return
 
     const currCell = gBoard[i][j]
 
     currCell.isShown = true
-    currCell.minesAroundCount = ''
+    currCell.minesAroundCount = null
 
     if (!gGame.isOn || currCell.minesAroundCount || currCell.isMarked) return
 
@@ -55,14 +55,13 @@ function onCellClicked(elCell, i, j) {
     if (gGame.isHint) closeHint(i, j)
 
     if (currCell.minesAroundCount) elCell.innerText = currCell.minesAroundCount
-    else if (!currCell.minesAroundCount) expandShown(i, j)
+    else if (!currCell.minesAroundCount && !currCell.isMine) expandShown(i, j)
 
     if (currCell.isMine) checkGameOver(elCell)
 
     renderSubtitle()
     checkWin()
 }
-
 
 function onCellMarked(event, elCell, i, j) {
     if (!gGame.isOn) return
@@ -84,14 +83,15 @@ function smileyButton(click) {
 }
 
 function safeClicks(click) {
-    if (!gGame.safeClicksCount) return
+    const cell = getSafeClicks()
+    if (!gGame.safeClicksCount || !cell) return
+
     gGame.safeClicksCount--
 
     click.style.color = getRandomColor()
     click.style.backgroundColor = getRandomColor()
     if (!gGame.safeClicksCount) click.style.opacity = 0
 
-    var cell = getSafeClicks()
     renderCell(cell, '👌')
 
     setTimeout(() => {
@@ -126,6 +126,58 @@ function onHintsClick(elClick) {
     elClick.innerText = '💡'
     gGame.isHint = !gGame.isHint
 }
+
+function onMegaHintCellClick(elCell, i, j) {
+    gGame.megaHintCount++
+    if (!gGame.isMegaHint || gGame.megaHintCount > 2 || !gGame.shownCount) return
+
+    if (gGame.megaHintCount === 1) gGame.leftClick = { i, j }
+
+    if (gGame.megaHintCount === 2) {
+        var rightClick = { i, j }
+
+        for (var i = 0; i < gBoard.length; i++) {
+            if (i < gGame.leftClick.i || i > rightClick.i) continue
+            for (var j = 0; j < gBoard.length; j++) {
+                if (j < gGame.leftClick.j || j > rightClick.j) continue
+                const currCell = gBoard[i][j]
+                if (currCell.isShown || currCell.isMarked) continue
+                if (currCell.minesAroundCount) renderCell({ i, j }, currCell.minesAroundCount)
+                if (currCell.isMine) renderCell({ i, j }, MINE_IMG)
+                
+                const elMegaHintContinuer = document.querySelector('.mega-hint')
+                const selector = `.cell-${i}-${j}` 
+                const elMegaHint = document.querySelector(selector)
+                
+                elMegaHint.style.backgroundColor = 'orange'
+                elMegaHintContinuer.style.opacity = 0
+            }
+        }
+        setTimeout(() => {
+            for (var i = 0; i < gBoard.length; i++) {
+                if (i < gGame.leftClick.i || i > rightClick.i) continue
+                for (var j = 0; j < gBoard.length; j++) {
+                    if (j < gGame.leftClick.j || j > rightClick.j) continue
+                    if (gBoard[i][j].isShown || gBoard[i][j].isMarked) continue
+                    renderCell({ i, j }, EMPTY)
+                }
+            }
+            gGame.isMegaHint = false
+        }, 1500)
+    }
+}
+
+function onMegaHintClick(elCell) {
+    gGame.isMegaHint = !gGame.isMegaHint
+    gGame.megaHintCount = 0
+    elCell.style.backgroundColor = 'yellow'
+
+    setTimeout(() => {
+        elCell.style.backgroundColor = '#8eb264'
+    }, 3000)
+
+}
+
 var gIsGameRules = false
 
 function onGameRules(click) {
